@@ -1,0 +1,15 @@
+{
+    "architecture": "all",
+    "description": "description of snortpoopheew",
+    "framework": "ubuntu-sdk-14.04-dev1",
+    "hooks": {
+        "snortpoo": {
+            "apparmor": "snortpoo.json",
+            "desktop": "snortpoo.desktop"
+        }
+    },
+    "maintainer": "rene paulokat",
+    "name": "com.ubuntu.developer.erpe.snortpoopheew",
+    "title": "snortpoopheew",
+    "version": "0.1"
+}

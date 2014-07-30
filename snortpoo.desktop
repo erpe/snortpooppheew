@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=snortpoo
+Exec=snortpoopheew
+Icon=snortpoopheew.png
+Terminal=false
+Type=Application
+X-Ubuntu-Touch=true
+

@@ -6,6 +6,7 @@ import QtQuick.Dialogs 1.1
     \brief MainView with a Label and Button elements.
 */
 import QtQuick.Controls 1.1
+import Ubuntu.PerformanceMetrics 1.0
 
 MainView {
     id: mainPoopView
@@ -203,7 +204,8 @@ MainView {
                 exclusiveGroup: hashGroup
             }
         }
-    }
+
+            }
 
 
     StatusBar {
@@ -220,4 +222,35 @@ MainView {
             verticalAlignment: Text.AlignVCenter
         }
     }
+
+    Button {
+        id: startCopyBtn
+        x: 584
+        y: 310
+        width: 191
+        height: 27
+        text: qsTr("Process...")
+        onClicked: {
+          console.log("process klicked...")
+          ctrl.startCopy()
+          startCopyBtn.enabled = false
+          cancelCopyBtn.enabled = true
+        }
+    }
+
+    Button {
+      id: cancelCopyBtn
+      x: 381
+      y: 311
+      width: 191
+      height: 27
+      text: qsTr("Cancel")
+      enabled: false
+      onClicked: {
+        console.log("cancel klicked...")
+        startCopyBtn.enabled = true
+        cancelCopyBtn.enabled = false
+      }
+    }
+
 }

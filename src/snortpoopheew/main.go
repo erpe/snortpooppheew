@@ -55,3 +55,10 @@ func (ctrl *Control) DestinationDir(txt string) {
     qml.Changed(ctrl, &ctrl.StatusText)
   }()
 }
+
+func (ctrl *Control) StartCopy() {
+  go func() {
+    ctrl.StatusText = "starting the process..."
+    qml.Changed(ctrl, &ctrl.StatusText)
+  }()
+}

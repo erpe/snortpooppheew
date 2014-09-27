@@ -25,6 +25,7 @@ MainView {
     width: units.gu(100)
     height: 400
 
+
     FileDialog {
         id: destinationFileDialog
         selectExisting: false
@@ -32,6 +33,7 @@ MainView {
         onAccepted: {
            console.log("destination chosen: " + destinationFileDialog.fileUrl)
            ctrl.destinationDir(destinationFileDialog.fileUrl)
+           cfg.destination = destinationFileDialog.fileUrl
         }
     }
 
@@ -42,6 +44,7 @@ MainView {
         onAccepted: {
            console.log("source chosen: " + sourceFileDialog.fileUrl)
            ctrl.sourceDir(sourceFileDialog.fileUrl)
+           cfg.source = sourceFileDialog.fileUrl
         }
     }
 
@@ -71,8 +74,6 @@ MainView {
             fillMode: Image.PreserveAspectFit
             source: "linse.png"
         }
-
-
 
 
         Text {
@@ -119,7 +120,7 @@ MainView {
                 Label {
                     id: label
                     objectName: "label"
-                    text: ctrl.message
+                    text: cfg.source
                 }
 
                 Button {
@@ -156,7 +157,7 @@ MainView {
                 anchors.top: parent.top
                 Label {
                     id: label1
-                    text: ctrl.message
+                    text: cfg.destination
                     objectName: "label"
                 }
 
@@ -194,18 +195,27 @@ MainView {
                 x: 100
                 y: 0
                 text: "MD5"
+                checked: cfg.hasMd5() ? true : false
                 exclusiveGroup: hashGroup
+                onClicked: {
+                  console.log("md5 checked")
+                  cfg.hash = "MD5"
+                }
             }
 
             RadioButton {
                 id: radioButton2
                 text: "CRC32"
-                checked: true
+                checked: cfg.hasCrc() ? true : false
                 exclusiveGroup: hashGroup
+                onClicked: {
+                  console.log("crc32 checked")
+                  cfg.hash = "CRC32"
+                }
             }
         }
 
-            }
+    }
 
 
     StatusBar {
@@ -231,7 +241,6 @@ MainView {
         height: 27
         text: qsTr("Process...")
         onClicked: {
-          console.log("process klicked...")
           ctrl.startCopy()
           startCopyBtn.enabled = false
           cancelCopyBtn.enabled = true

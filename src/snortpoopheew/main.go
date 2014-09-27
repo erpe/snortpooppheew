@@ -1,10 +1,14 @@
 package main
 
+
+
 import (
+        "fmt"
         "gopkg.in/qml.v0"
         "math/rand"
         "time"
 )
+
 
 func main() {
         qml.Init(nil)
@@ -19,6 +23,11 @@ func main() {
         context := engine.Context()
         context.SetVar("ctrl", &ctrl)
 
+        cfg := SnortConfig{ Source: "", Destination: "", Hash: "MD5"}
+        context.SetVar("cfg", &cfg)
+
+        fmt.Println("default hash: " + cfg.Hash)
+        fmt.Println("debug: %t", cfg.HasMd5() )
         window := component.CreateWindow(nil)
 
         ctrl.Root = window.Root()
@@ -33,6 +42,28 @@ type Control struct {
         Root    qml.Object
         Message string
         StatusText string
+}
+
+type SnortConfig struct {
+  Source string
+  Destination string
+  Hash string
+}
+
+func (cfg *SnortConfig) HasMd5() bool {
+  if (cfg.Hash == "MD5") {
+    return true
+  } else {
+    return false
+  }
+}
+
+func (cfg *SnortConfig) HasCrc() bool {
+  if cfg.Hash == "CRC32" {
+    return true
+  } else {
+    return false
+  }
 }
 
 func (ctrl *Control) Hello() {

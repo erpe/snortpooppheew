@@ -14,7 +14,7 @@ MainView {
     objectName: "mainView"
 
     // Note! applicationName needs to match the "name" field of the click manifest
-    applicationName: "com.ubuntu.developer..goqmltest"
+    applicationName: "com.ubuntu.developer.erpe.snortpoopheew"
 
     /*
      This property enables the application to change orientation
@@ -33,6 +33,7 @@ MainView {
         onAccepted: {
            console.log("destination chosen: " + destinationFileDialog.fileUrl)
            cfg.destinationUrl = destinationFileDialog.fileUrl
+           startCopyBtn.enabled = true
         }
     }
 
@@ -43,6 +44,7 @@ MainView {
         onAccepted: {
            console.log("source chosen: " + sourceFileDialog.fileUrl)
            cfg.sourceUrl = sourceFileDialog.fileUrl
+           destinationButton.enabled = true
         }
     }
 
@@ -117,6 +119,7 @@ MainView {
 
 
                 Button {
+                    id: sourceButton
                     objectName: "button"
                     width: parent.width
                     text: i18n.tr("Source Directory")
@@ -157,9 +160,11 @@ MainView {
                 
 
                 Button {
+                    id: destinationButton
                     objectName: "button"
                     width: parent.width
                     text: i18n.tr("Destination Directory")
+                    enabled: false
                     onClicked: {
                         destinationFileDialog.setTitle("chosse destination directory...")
                         destinationFileDialog.open()
@@ -236,11 +241,13 @@ MainView {
 
     Button {
         id: startCopyBtn
+        objectName: "StartBtn"
         x: 584
         y: 310
         width: 191
         height: 27
         text: qsTr("Process...")
+        enabled: false
         onClicked: {
           ctrl.startCopy(cfg)
           startCopyBtn.enabled = false

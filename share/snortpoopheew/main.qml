@@ -32,8 +32,7 @@ MainView {
         selectFolder: true
         onAccepted: {
            console.log("destination chosen: " + destinationFileDialog.fileUrl)
-           ctrl.destinationDir(destinationFileDialog.fileUrl)
-           cfg.destination = destinationFileDialog.fileUrl
+           cfg.destinationUrl = destinationFileDialog.fileUrl
         }
     }
 
@@ -43,8 +42,7 @@ MainView {
         selectFolder: true
         onAccepted: {
            console.log("source chosen: " + sourceFileDialog.fileUrl)
-           ctrl.sourceDir(sourceFileDialog.fileUrl)
-           cfg.source = sourceFileDialog.fileUrl
+           cfg.sourceUrl = sourceFileDialog.fileUrl
         }
     }
 
@@ -117,11 +115,6 @@ MainView {
                     margins: units.gu(2)
                 }
 
-                Label {
-                    id: label
-                    objectName: "label"
-                    text: cfg.source
-                }
 
                 Button {
                     objectName: "button"
@@ -131,6 +124,12 @@ MainView {
                         sourceFileDialog.setTitle("chosse source directory...")
                         sourceFileDialog.open()
                    }
+                }
+                
+                Label {
+                    id: label
+                    objectName: "label"
+                    text: cfg.sourceUrl
                 }
             }
         }
@@ -155,11 +154,7 @@ MainView {
                 anchors.leftMargin: 16
                 anchors.bottom: parent.bottom
                 anchors.top: parent.top
-                Label {
-                    id: label1
-                    text: cfg.destination
-                    objectName: "label"
-                }
+                
 
                 Button {
                     objectName: "button"
@@ -169,6 +164,12 @@ MainView {
                         destinationFileDialog.setTitle("chosse destination directory...")
                         destinationFileDialog.open()
                     }
+                }
+                
+                Label {
+                    id: label1
+                    text: cfg.destinationUrl
+                    objectName: "label"
                 }
                 spacing: units.gu(1)
             }
@@ -241,7 +242,7 @@ MainView {
         height: 27
         text: qsTr("Process...")
         onClicked: {
-          ctrl.startCopy()
+          ctrl.startCopy(cfg)
           startCopyBtn.enabled = false
           cancelCopyBtn.enabled = true
         }
